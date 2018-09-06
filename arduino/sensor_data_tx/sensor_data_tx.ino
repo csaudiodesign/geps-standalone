@@ -21,6 +21,10 @@ uint8_t msbgx, lsbgx, msbgy, lsbgy, msbgz, lsbgz;
 
 void setup()
 {
+    // prepare the status LED
+    pinMode(13, OUTPUT);
+    digitalWrite(13, LOW);
+
     Serial1.begin(115200); // initialize Serial communication
     while (!Serial1);    // wait for the serial port to open
 
@@ -36,6 +40,9 @@ void setup()
 
     CurieIMU.noGyroOffset();
     CurieIMU.noAccelerometerOffset();
+
+    // turn on the status LED
+    digitalWrite(13, HIGH);
 }
 
 void loop()
