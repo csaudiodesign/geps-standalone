@@ -32,7 +32,7 @@ void setup()
 
     // ranges
     CurieIMU.setGyroRange(2000);
-  CurieIMU.setAccelerometerRange(2);
+    CurieIMU.setAccelerometerRange(4);
 
     CurieIMU.noGyroOffset();
     CurieIMU.noAccelerometerOffset();
