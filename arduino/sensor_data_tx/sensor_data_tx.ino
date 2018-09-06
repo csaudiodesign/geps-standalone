@@ -3,6 +3,9 @@
 
 ///// INITIALIZE //////
 
+// delay (microseconds) to prevent overloading the XBee connection
+int delayTime(1000);
+
 // the 6 values of the IMU
 // in case of CurieIMU library, this has to be int32_t, but the compiler complains
 // it should be int instead of int32_t, even though these types have the same precision and range.
@@ -18,7 +21,7 @@ uint8_t msbgx, lsbgx, msbgy, lsbgy, msbgz, lsbgz;
 
 void setup()
 {
-  Serial1.begin(38400); // initialize Serial communication
+    Serial1.begin(115200); // initialize Serial communication
   while (!Serial1);    // wait for the serial port to open
 
   CurieIMU.begin();
@@ -93,4 +96,7 @@ void loop()
   Serial1.write(msbgy); Serial1.write(lsbgy);
   Serial1.write(msbgz); Serial1.write(lsbgz);
 
+    // prevent overloading the XBee connection
+    Serial1.flush();
+    delayMicroseconds(delayTime);
 }
