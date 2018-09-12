@@ -1,6 +1,8 @@
 # GePS 2.0
 
-GePS reinvented. An evolved, integrated and standalone electronic musical instrument based on the research done on GePS 1.0.
+GePS reinvented. An evolved, integrated and standalone electronic musical instrument based on the research done on [GePS 1.0](https://github.com/csaudiodesign/GePS).
+
+This repository accompanies the developments that we document at our [Hackaday Project](https://hackaday.io/project/160886-geps).
 
 ## Goals
 
