@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "lolol" >> test.txt
-exit 0
-
 export SRCDIR=$HOME/src
 cd $SRCDIR
 curl -L https://github.com/pure-data/pure-data/archive/0.49-0.tar.gz | tar zxf -
