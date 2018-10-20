@@ -1,0 +1,74 @@
+---
+# GePS: Gesture-based Performance System
+#
+# Playbook to configure a fresh raspbian light image for
+# use as the sound module running Pure Data
+#
+# this playbook requires ansible >= 2.2
+
+- name: "install OS, pisound and GePS"
+  hosts: all
+
+  pre_tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      changed_when: False
+      tags: [setup]
+      become: yes
+
+  tasks:
+  - name: Add an APT signing key, uses whichever key is at the URL
+    apt_key:
+      url: https://blokas.io/gpg.public.key
+      state: present
+    become: yes
+
+  - name: "Add Pisound APT repository"
+    apt_repository:
+      repo: deb http://blokas.io/apt/ rpi main
+      state: present
+      filename: blokas
+    become: yes
+
+  - name: "Upgrade system"
+    apt: update_cache=yes
+    become: yes
+
+  - name: 'Reboot'
+    shell: sync && sleep 2 && shutdown -r now "Ansible updates triggered"
+    async: 1
+    poll: 0
+    become: yes
+    ignore_errors: yes
+
+  - name: "Wait for Raspberry Pi to come back"
+    local_action: wait_for host={{ ansible_host | default(inventory_hostname,boolean=True) }} timeout=120 search_regex=OpenSSH delay=10
+    become: no
+
+  - name: "Install software dependencies"
+    apt:
+      name: "{{ packages }}"
+      install_recommends: no
+      state: latest
+    vars:
+      packages:
+        - automake
+        - libtool
+        - libasound2-dev
+        - libfftw3-dev
+        - git
+        - pisound
+    become: yes
+
+  - name: "Pull the blokas Pisound repository"
+    raw: cd /usr/local/pisound && git -c user.name="blokas_installer" -c user.email="blokas@installer" stash && git pull
+    become: yes
+
+  - name: "Configure default sound card"
+    copy:
+      src: ./files/asoundrc
+      dest: /home/pi/.asoundrc
+      owner: pi
+      mode: 0644
+      force: yes
+    become: yes
