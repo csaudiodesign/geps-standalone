@@ -105,3 +105,23 @@
     command: "./build-pd-deps.sh"
     args:
       chdir: /home/pi/src/
+
+  - name: Enable linger for user pi
+    raw: "sudo loginctl enable-linger pi"
+
+  - name: Copy GePS systemd system unit
+    copy:
+      src: ./files/geps-standalone.service
+      dest: /usr/lib/systemd/user/geps-standalone.service
+      owner: pi
+      group: pi
+      mode: 0644
+    become: yes
+
+  - name: Run GePS systemd service
+    systemd:
+      name: geps-standalone
+      enabled: yes
+      state: restarted
+      user: yes
+      daemon-reload: yes

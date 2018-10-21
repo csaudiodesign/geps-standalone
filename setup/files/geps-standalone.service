@@ -1,0 +1,11 @@
+[Unit]
+Description=GePS - Pure data sound module
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/pd -blocksize 64 -noadc -stderr -alsa -audioadddev pisound -nosleep -outchannels 2 -r 44100 -nogui -send ";pd dsp 1;perform-toggle-rcv 1" -path /home/pi/geps-standalone/pd/ -open /home/pi/geps-standalone/pd/GePS-MAIN.pd
+StandardOutput=syslog+console
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
