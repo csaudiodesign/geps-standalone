@@ -64,6 +64,20 @@
     raw: cd /usr/local/pisound && git -c user.name="blokas_installer" -c user.email="blokas@installer" stash && git pull
     become: yes
 
+  - name: Disable pisound-ctl systemd service
+    systemd:
+      name: pisound-ctl
+      enabled: no
+      state: stopped
+    become: yes
+
+  - name: Disable pisound-btn systemd service
+    systemd:
+      name: pisound-btn
+      enabled: no
+      state: stopped
+    become: yes
+
   - name: "Configure default sound card"
     copy:
       src: ./files/asoundrc
