@@ -32,5 +32,11 @@ cd comport
 make -j4
 sudo make install
 
+cd $SRCDIR
+git clone --depth=1 --recursive https://github.com/csaudiodesign/geps-externals.git
+cd geps-externals
+make -j2
+sudo make install
+
 cd $HOME
 git clone https://github.com/csaudiodesign/geps-standalone.git
