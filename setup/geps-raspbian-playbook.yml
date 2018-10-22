@@ -6,7 +6,7 @@
 #
 # this playbook requires ansible >= 2.2
 
-- name: "install OS, pisound and GePS"
+- name: Install OS, pisound and GePS
   hosts: all
 
   pre_tasks:
@@ -23,31 +23,31 @@
       state: present
     become: yes
 
-  - name: "Add Pisound APT repository"
+  - name: Add Pisound APT repository
     apt_repository:
       repo: deb http://blokas.io/apt/ rpi main
       state: present
       filename: blokas
     become: yes
 
-  - name: "Upgrade system"
+  - name: Upgrade system
     apt: update_cache=yes
     become: yes
 
-  - name: 'Reboot'
+  - name: Reboot
     shell: sync && sleep 2 && shutdown -r now "Ansible updates triggered"
     async: 1
     poll: 0
     become: yes
     ignore_errors: yes
 
-  - name: "Wait for Raspberry Pi to come back"
+  - name: Wait for Raspberry Pi to come back
     local_action: wait_for host={{ ansible_host | default(inventory_hostname,boolean=True) }} timeout=120 search_regex=OpenSSH delay=10
     become: no
 
-  - name: "Install software dependencies"
+  - name: Install software dependencies
     apt:
-      name: "{{ packages }}"
+      name: {{ packages }}
       install_recommends: no
       state: latest
     vars:
@@ -60,7 +60,7 @@
         - pisound
     become: yes
 
-  - name: "Pull the blokas Pisound repository"
+  - name: Pull the blokas Pisound repository
     raw: cd /usr/local/pisound && git -c user.name="blokas_installer" -c user.email="blokas@installer" stash && git pull
     become: yes
 
@@ -78,7 +78,7 @@
       state: stopped
     become: yes
 
-  - name: "Configure default sound card"
+  - name: Configure default sound card
     copy:
       src: ./files/asoundrc
       dest: /home/pi/.asoundrc
@@ -102,7 +102,7 @@
       force: yes
 
   - name: Execute script to build Pure Data and dependencies
-    command: "./build-pd-deps.sh"
+    command: ./build-pd-deps.sh
     args:
       chdir: /home/pi/src/
 
