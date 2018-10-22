@@ -1,17 +1,17 @@
 #N canvas 14 22 740 570 10;
-#X obj 61 138 t f f f f f;
+#X obj 61 137 t f f f f f;
 #X obj 16 194 spigot 0;
-#X obj 306 175 switch~;
-#X obj 306 155 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 306 171 switch~;
+#X obj 306 151 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 306 135 r sp-dsp;
-#X text 305 192 proc switch;
+#X obj 306 131 r sp-dsp;
+#X text 305 188 proc switch;
 #X obj 61 46 inlet mod_switch;
-#X obj 428 155 sel 0 1;
+#X obj 428 151 sel 0 1;
 #X obj 40 70 cnv 15 160 60 label-template-snd label-template-rcv GePS_TEMPLATE
 20 12 0 12 -261689 -66577 0;
-#X msg 447 210 \; label-template-rcv color 16 12;
-#X msg 428 174 \; label-template-rcv color 3 2;
+#X msg 447 206 \; label-template-rcv color 16 12;
+#X msg 428 170 \; label-template-rcv color 3 2;
 #X obj 61 97 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
 ;
 #X text 81 96 turn module on/off;
@@ -46,10 +46,10 @@
 #X obj 212 59 r geps.template;
 #X obj 115 473 throw~ def.R;
 #X obj 16 473 throw~ def.L;
-#X obj 204 475 comment 0 10 monaco ? 0 0 0 0 set this to the desired
-channel of the mixer (i.e. ch-04.L / ch-04.R);
 #X obj 16 171 r t.flick;
 #X text 86 173 recieve triggers;
+#X text 204 468 set this to the desired channel of the mixer;
+#X text 204 478 (i.e. ch-04.L / ch-04.R);
 #X connect 0 0 1 1;
 #X connect 0 1 14 1;
 #X connect 0 3 7 0;
@@ -76,5 +76,5 @@ channel of the mixer (i.e. ch-04.L / ch-04.R);
 #X connect 30 0 16 2;
 #X connect 32 0 22 0;
 #X connect 33 0 13 0;
-#X connect 37 0 1 0;
+#X connect 36 0 1 0;
 #X coords 0 -1 1 1 160 60 1 40 70;
