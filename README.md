@@ -11,3 +11,11 @@ GePS reinvented. An evolved, integrated and standalone electronic musical instru
 Furthermore we aim for better hackability through more programming interfaces ([sound module documentation](http://geps.synack.ch/doc-software.html)) and updated documentation as well as new and exciting sound modules ([geps-externals](https://github.com/csaudiodesign/geps-externals)!) and content.
 
 This repository accompanies the developments that we document at our [Hackaday Project](https://hackaday.io/project/160886-geps).
+
+## Dependencies
+
+- [geps-externals](https://github.com/csaudiodesign/geps-externals)
+- [comport](https://git.iem.at/pd/comport)
+- [pd-cyclone](https://github.com/porres/pd-cyclone)
+- [pd-freeverb](https://github.com/electrickery/pd-freeverb)
+- [list-abs](https://github.com/pd-externals/list-abs)
