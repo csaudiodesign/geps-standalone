@@ -19,3 +19,34 @@ This repository accompanies the developments that we document at our [Hackaday P
 - [pd-cyclone](https://github.com/porres/pd-cyclone)
 - [pd-freeverb](https://github.com/electrickery/pd-freeverb)
 - [list-abs](https://github.com/pd-externals/list-abs)
+
+## Installation
+
+We suggest to build Pure data and the dependencies (externals) from sources to get latest and greatest versions (Pure data release 0.49 as the time of this writing), which are not available through the standard repositories.
+
+In order to simplify the installation process of the Raspberry Pi sound module, we put together an Ansible playbook for provisioning. In addition to that, we integrated the build process into a script, which in turn is also run by the Ansible playbook.
+
+```bash
+cd setup
+ansible-playbook --key-file ~/.ssh/rpi-provisioning \
+    -u pi -i 192.168.88.181, geps-raspbian-playbook.yml
+```
+
+Here's a list of all the tasks that are automated by the playbook and buildscript:
+
+- Upgrade raspbian
+- Install the software dependencies for building Pure data and dependencies/externals (gcc, automake, ALSA and FFT dev libraries, libtool and git)
+- Add the pisound package repository
+- Install the pisound packages
+- Disable unnecessary services (pisound-ctl, pisound-btn), as they consume a lot of resources at times
+- Configure the default sound card (pisound)
+- Running the build script, cloning, building and installing Pure data, dependencies and GePS sound module
+  - Pure data (vanilla, release 0.49)
+  - pd-cyclone
+  - list-abs (just install, no building required)
+  - pd-freeverb
+  - comport
+  - geps-externals (our GePS externals library)
+  - geps-standalone (this repository)
+- Enable starting the GePS sound module (with a systemd system unit) when booting the Raspberry Pi
+- Building Pure data and dependencies from sources, install the GePS package
