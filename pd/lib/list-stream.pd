@@ -1,0 +1,17 @@
+#N canvas 380 270 400 140 10;
+#X obj 20 16 inlet;
+#X obj 20 58 list append;
+#X obj 20 79 list split \$1;
+#X obj 20 100 outlet;
+#X obj 84 16 inlet;
+#X obj 84 37 route clear float;
+#X text 141 15 Implementation of Max/MSP "list-stream";
+#X text 141 77 takes one argument: list size;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 2 0 1 1;
+#X connect 2 2 1 1;
+#X connect 4 0 5 0;
+#X connect 5 0 1 1;
+#X connect 5 1 2 1;
